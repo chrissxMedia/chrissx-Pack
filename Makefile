@@ -19,10 +19,10 @@ assets/minecraft/textures/gui/options_background.png: pack.png
 	cp -f $< $@
 
 version:
-	echo '$(VERSION)'
+	@echo '$(VERSION)'
 
 outfile:
-	echo '$(OUTFILE)'
+	@echo '$(OUTFILE)'
 
 clean:
 	rm -f pack.png pack.mcmeta
