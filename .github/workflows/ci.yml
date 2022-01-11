@@ -7,11 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo "outfile=`make outfile`" >> $GITHUB_ENV
       - run: echo "fullname=`make fullname`" >> $GITHUB_ENV
       - run: ln -s $PWD/minecraft-fonts /usr/share/fonts/minecraft
-      - run: make -j$(nproc) all
+      - run: make -j$(nproc) deps
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ env.fullname }}
-          path: ${{ env.outfile }}
+          path: |
+            pack.mcmeta
+            pack.png
+            assets/

@@ -7,8 +7,10 @@ OUTFILE = $(FULLNAME).zip
 
 all: $(OUTFILE)
 
-$(OUTFILE): $(FILES)
+$(OUTFILE): deps
 	zip -9 $@ $^
+
+deps: $(FILES)
 
 pack.mcmeta: meta.raw.json Makefile
 	sed 's/$$AUTHOR/$(AUTHOR)/;s/$$VERSION/$(VERSION)/;s/$$HOMEPAGE/$(shell echo '$(HOMEPAGE)' | sed 's/\//\\\//g')/' $< > $@
@@ -31,4 +33,4 @@ fullname:
 clean:
 	rm -f pack.png pack.mcmeta
 
-.PHONY: all version outfile clean
+.PHONY: all deps version outfile fullname clean
