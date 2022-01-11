@@ -1,13 +1,23 @@
-FILES = pack.mcmeta pack.png $(shell find assets -type f)
 AUTHOR = pixel, chrissx Media
 VERSION = 5
 HOMEPAGE = https://github.com/chrissxMedia/chrissx-Pack
+
 FULLNAME = chrissx-Pack-$(VERSION)
 OUTFILE = $(FULLNAME).zip
 
+FILES = pack.mcmeta pack.png $(shell find assets -type f)
+
+ifeq ($(OS),Windows_NT)
+	MINECRAFT_DIR ?= $(APPDATA)/.minecraft
+else ifeq ($(shell uname -s 2>/dev/null || echo Unknown),Darwin)
+	MINECRAFT_DIR ?= $(HOME)/Library/Application Support/.minecraft
+else
+	MINECRAFT_DIR ?= $(HOME)/.minecraft
+endif
+
 all: $(OUTFILE)
 
-$(OUTFILE): deps
+$(OUTFILE): $(FILES)
 	zip -9 $@ $^
 
 deps: $(FILES)
@@ -33,4 +43,7 @@ fullname:
 clean:
 	rm -f pack.png pack.mcmeta
 
-.PHONY: all deps version outfile fullname clean
+install:
+	cp -f $(OUTFILE) $(MINECRAFT_DIR)/resourcepacks/
+
+.PHONY: all deps version outfile fullname clean install
