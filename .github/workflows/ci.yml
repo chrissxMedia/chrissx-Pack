@@ -7,9 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: echo "outfile=`make outfile`" >> $GITHUB_ENV
       - run: ln -s $PWD/minecraft-fonts /usr/share/fonts/minecraft
       - run: make -j$(nproc) all
       - uses: actions/upload-artifact@v2
         with:
-          name: $(make outfile)
-          path: $(make outfile)
+          name: ${{ env.outfile }}
+          path: ${{ env.outfile }}
