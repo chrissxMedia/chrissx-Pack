@@ -1,0 +1,16 @@
+name: CI
+
+on: [push, workflow_dispatch]
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+      - run: ln -s $PWD/minecraft-fonts /usr/share/fonts/minecraft
+      - run: make -j$(nproc) all
+      - uses: actions/upload-artifact@v2
+        with:
+          name: $(make outfile)
+          path: $(make outfile)
