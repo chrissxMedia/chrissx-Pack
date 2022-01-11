@@ -2,7 +2,8 @@ FILES = pack.mcmeta pack.png $(shell find assets -type f)
 AUTHOR = pixel, chrissx Media
 VERSION = 5
 HOMEPAGE = https://github.com/chrissxMedia/chrissx-Pack
-OUTFILE = chrissx-Pack-$(VERSION).zip
+FULLNAME = chrissx-Pack-$(VERSION)
+OUTFILE = $(FULLNAME).zip
 
 all: $(OUTFILE)
 
@@ -23,6 +24,9 @@ version:
 
 outfile:
 	@echo '$(OUTFILE)'
+
+fullname:
+	@echo '$(FULLNAME)'
 
 clean:
 	rm -f pack.png pack.mcmeta
