@@ -1,6 +1,6 @@
 FILES = pack.mcmeta pack.png $(shell find assets -type f)
-AUTHOR = chrissx \& GammlaBrause
-VERSION = 0.0.4
+AUTHOR = pixel, chrissx Media
+VERSION = 5
 HOMEPAGE = https://github.com/chrissxMedia/chrissx-Pack
 OUTFILE = chrissx-Pack-$(VERSION).zip
 
@@ -12,8 +12,19 @@ $(OUTFILE): $(FILES)
 pack.mcmeta: meta.raw.json Makefile
 	sed 's/$$AUTHOR/$(AUTHOR)/;s/$$VERSION/$(VERSION)/;s/$$HOMEPAGE/$(shell echo '$(HOMEPAGE)' | sed 's/\//\\\//g')/' $< > $@
 
+%.png: %.svg
+	inkscape -o $@ $<
+
+assets/minecraft/textures/gui/options_background.png: pack.png
+	cp -f $< $@
+
 version:
 	echo '$(VERSION)'
 
 outfile:
 	echo '$(OUTFILE)'
+
+clean:
+	rm -f pack.png pack.mcmeta
+
+.PHONY: all version outfile clean
