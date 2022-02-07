@@ -75,13 +75,12 @@
 [C]§f===================
 
 §7Created by:
-§f			chrissx
-§f			GammlaBrause
+§f			pixel aka. chrissx
 
 §7Thanks to:
 §f			Sphax
 §f			GridArtZ
-§f			Other People We Stealt Textures From
+§f			other people we stole textures from
 §f
 §f
 §f
