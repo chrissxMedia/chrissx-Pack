@@ -18,15 +18,15 @@ endif
 all: $(OUTFILE)
 
 $(OUTFILE): $(FILES)
-	zip -9 $@ $^
+	zip -9 '$@' $^
 
 deps: $(FILES)
 
 pack.mcmeta: meta.raw.json Makefile
-	sed 's/$$AUTHOR/$(AUTHOR)/;s/$$VERSION/$(VERSION)/;s/$$HOMEPAGE/$(shell echo '$(HOMEPAGE)' | sed 's/\//\\\//g')/' $< > $@
+	sed 's/$$AUTHOR/$(AUTHOR)/;s/$$VERSION/$(VERSION)/;s/$$HOMEPAGE/$(shell echo '$(HOMEPAGE)' | sed 's/\//\\\//g')/' '$<' > '$@'
 
 %.png: %.svg
-	inkscape -o $@ $<
+	inkscape -o '$@' '$<'
 
 assets/minecraft/textures/gui/options_background.png: pack.png
 	cp -f $< $@
@@ -41,9 +41,9 @@ fullname:
 	@echo '$(FULLNAME)'
 
 clean:
-	rm -f pack.png pack.mcmeta
+	rm -f pack.png pack.mcmeta '$(OUTFILE)'
 
-install:
-	cp -f $(OUTFILE) $(MINECRAFT_DIR)/resourcepacks/
+install: $(OUTFILE)
+	cp -f '$(OUTFILE)' '$(MINECRAFT_DIR)/resourcepacks/'
 
 .PHONY: all deps version outfile fullname clean install
